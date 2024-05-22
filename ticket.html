@@ -1,0 +1,596 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>服了彩票v0.01</title>  
+    <!-- <link rel="stylesheet" href="styles.css">   -->
+    <style type="">/* styles.css */  
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.12.0/dist/JsBarcode.all.min.js"></script> 
+body {  
+    font-family: Arial, sans-serif;  
+    margin: 20px;  
+    padding: 0;
+
+}  
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+}
+form {  
+    margin-bottom: 20px;  
+}  
+  
+form div {  
+    margin-bottom: 10px;  
+}  
+ #input1 input{
+    width: 50px;
+    height: 50px;
+    text-align: center; 
+    font-size: 40px;
+    line-height: 20px;
+  }
+#result {  
+    font-weight: bold;  
+    color: green; /* 假设中奖是绿色，未中奖可以是其他颜色 */  
+}
+.h20{
+    height: 20px;
+}
+/*ticket-content .erweima{
+    
+    line-height: 40px !important;
+    
+}*/
+h1.erweima{
+    text-align: center;
+    font-size: 40px;
+    text-indent: 0px;
+}
+.ticket {  
+    width: 480px;  
+    /*height: 560px;  */
+    /*background-color: #f0f0f0;  */
+    /*border: 1px solid #000;  */
+    position: absolute;  
+    /*overflow: hidden;  */
+    top: 00px;
+    left: 600px;
+  }  
+  
+  .ticket-content {  
+    position: absolute;  
+    top: -100%;  
+    width: 100%;  
+    height: 100%;  
+    font-size: 20px;  
+    text-indent: 30px;  
+    /*padding-top: 20px;  */
+    line-height: 80px;  
+    /*transition: top 2s ease-out;  */
+  }  
+  div#ticketContent div{
+    line-height: 30px;
+  }
+  .tac{
+    text-align: center;  
+    text-indent: 0px;  
+  }
+  div.bb{
+    position: relative;
+    display: inline-block;
+    width: 650px;
+    height: 360px;
+    /*left: 200px;*/
+    background-color: #6484f7;
+  }
+  div.bb div{
+    height: 56px;
+    width: 100%;
+    text-align: revert;  
+    margin: 10px;
+  }
+  div.bb button#kaiji{
+    /*margin: 200px;*/
+    width: 100px;
+    margin: 30% 40%;
+  }
+  div.bb div div{
+    display: inline-block;
+    text-align: center;  
+    width: 50px;
+    height: 50px;
+    background-color: #ff3333;
+    margin-left: 10px;
+  }
+  /*div.bb input#beishu{
+    position: absolute;
+    left: 590px;
+    top: 10px;
+    font-size: 30px;
+  }*/
+  #input1 input,  
+.bb div div ,.bb div span{  
+    display: inline-block; /* 确保div也是内联块级元素 */  
+    cursor: default;
+    text-align: center;  
+    font-size: 30px; /* 调整为更合适的字体大小 */  
+    line-height: 50px; /* 与高度相同，以确保文本垂直居中 */  
+    vertical-align: top; /* 明确指定垂直对齐方式 */  
+    margin: 0; /* 移除任何外边距 */  
+    padding: 0; /* 移除任何内边距 */  
+    border: 2px;
+    margin-left: 10px;
+}  
+#input1 input,  
+.bb div div{
+width: 50px;  
+    height: 50px;  
+}
+div,span{
+    user-select: none;
+}
+  .fh{
+    line-height: 20px;
+    font-family: Inconsolata, sans-serif; 
+    font-size: 30px;
+  }
+  div.ss1 h5,div.ss2 h5{
+    position: relative;
+  }
+  div.ss1 h5 span.pa,div.ss2 h5 span.pa{
+    position: absolute;
+    right: 30px;
+  }
+  /* 打印状态，用于触发动画 */  
+  .ticket-content.printing {  
+    top: 0;  
+    transition: top 1s ease-out;
+  }  
+  
+  /* 隐藏状态，用于重置位置 */  
+  .ticket-content.hidden {  
+    top: -560px;  
+  }  
+  .ss2{  
+    width: 480px;  
+    height: 540px;  
+    /*background-color: #f0f0f0;  
+    border: 1px solid #dde82b;  */
+    position: absolute;  
+    text-indent: 30px;
+    overflow: hidden;  
+    top: 100px;
+    /*left: 310px;*/
+    line-height: 30px;
+  }
+  .ss3, .ss4 {  
+  position: absolute;  
+  width: 100%;  
+  height: 100%;  
+  /*border: 1px solid #ccc;  */
+  border-radius: 5px;  
+  backface-visibility: hidden; /* 背面不可见   */
+  transition: transform 0.5s ease-in-out; /* 平滑过渡效果 */  
+}  
+  
+.ss4 {  
+  background: #f9f9f9;  
+  /*z-index: 2; /* 正面在背面之上   */*/
+  transform: rotateY(0deg); /* 初始状态 */  
+}  
+  
+.ss3 {  
+   writing-mode: vertical-lr;
+    text-orientation: upright;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 37px;
+    line-height: 200px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:linear-gradient(45deg, #f12b2b,#4c0808,#ce1c1c);
+    animation: gradient 13s ease infinite; 
+    background-size: 300% 300%;
+    background-repeat: repeat;
+  transform: rotateY(180deg); /* 背面初始时旋转180度 */  
+}  
+span.ss5{
+    width: 160px;
+    height: inherit;
+    position: absolute;
+    left: 160px;
+}
+.ss2 {  
+  /* 初始状态 */  
+  transition: transform 2s ease-out, opacity 2s ease-out;  
+  transform-origin: bottom right; /* 设置缩放原点在左上角 */  
+  opacity: 1;  
+}  
+  
+.ss2.active {  
+  /* 过渡结束后的状态 */  
+  transform: scale(0.1) translate(80vw, 80vh); /* 缩小到10%大小并向右下角移动 */  
+  opacity: 0;  
+}
+/* 当.page被点击时，翻转页面 */  
+.ss2.flipped .ss4 {  
+  transform: rotateY(180deg);  
+}  
+  
+.ss2.flipped .ss3 {  
+  transform: rotateY(360deg); /* 背面旋转360度回到正面位置，但视觉上看起来和0度一样 */  
+} 
+  .ss1 div.ss4,.ss2 div.ss4{
+    background:   
+    linear-gradient(45deg,   
+      red 0%,                           /* 红色开始 */  
+      red 10%,                        /* 红色稍微延长 */  
+      orange 15%,                    /* 过渡到橙色 */  
+      yellow 20%,                    /* 黄色 */  
+      greenyellow 30%,                /* 过渡到黄绿色 */  
+      green 35%,                      /* 绿色 */  
+      cyan 40%,                       /* 过渡到青色 */  
+      blue 50%,                         /* 蓝色 */  
+      indigo 55%,                     /* 过渡到靛蓝 */  
+      violet 60%,                     /* 紫色 */  
+      magenta 70%,                    /* 过渡到洋红 */  
+      pink 80%,                       /* 粉色 */  
+      pink 85%,                       /* 粉色稍微延长 */  
+      red 90%,                        /* 回到红色 */  
+      red  100%             /* 红色结束 */  
+    );  
+    background-size: 1200% 1200%; /* 控制渐变的大小 */  
+    animation: gradient 10s ease infinite; /* 应用动画使渐变移动 */  
+    background-repeat: repeat; /* 背景重复（可选） */  
+    overflow: hidden;
+  }
+ #input1 input[type=number]::-webkit-inner-spin-button,   
+#input1 input[type=number]::-webkit-outer-spin-button {   
+    -moz-appearance: none; /* Firefox */  
+    -webkit-appearance: none; /* Safari 和 Chrome */  
+    margin: 0; /* 移除额外的空间 */  
+}
+  @keyframes gradient {  
+    0% {  
+      background-position: 0% 50%;  
+    }  
+    50% {  
+      background-position: 100% 50%;  
+    }  
+    100% {  
+      background-position: 0% 50%;  
+    }  
+  }  
+/* 定义一个闪烁动画 */  
+@keyframes flash {  
+    0%, 100% { opacity: 1; }  
+    50% { opacity: 0; }  
+}  
+  
+.error-flash {  
+    animation: flash 1s ease-in-out infinite; /* 1秒闪烁，无限次 */  
+    background-color: red; /* 可以为input添加一个背景色，使其更突出 */  
+}
+#dianshike{
+    position: absolute;
+    left: 700px;
+    top: 50px;
+    background-color: brown;
+    width: 220px;
+    height: 120px;
+    text-align: center;line-height: 33px;
+    font-size: 30px;
+}
+#dianshi{
+    display: inline-block;
+    width: 200px;
+    height: 100px;
+    background-color: #8c6969;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    text-align: center;
+    
+}
+#dianshi div{
+    text-align: center;
+    font-size: 10px;
+    background: yellow;
+    line-height: 20px;
+}
+#dianshi span{
+    border-radius: 50%;
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    color: white;
+    border: 1px white solid;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 13px;
+}
+#dianshi span.b{
+    background-color: blue;
+}
+#dianshi.pp{
+    background-color: blue;
+}
+div#shouqi {
+    width: 50px;
+    background: rebeccapurple;
+    height: 50px;
+}
+div#xinxi {
+    height: 20px;
+    /* background: red; */
+    font-size: 20px;
+    margin: 0;
+    line-height: 20px;
+    position: absolute;
+    top: 330px;
+    text-align: center;
+}
+#shouqi{
+    width: 50px;
+    background: rebeccapurple;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    line-height: 25px;
+    font-size: 20px;
+}
+#head {  
+    position: fixed;  
+    top: 0;  
+    left: 0;  
+    width: 100%;  
+    height: 100%;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    background-color: rgba(111,111,111,1); /* 示例背景色 */  
+    color: white;  
+    font-size: 2em;  
+    text-align: center;  
+}  
+  
+#startGame {  
+    cursor: pointer; /* 添加鼠标悬停时的效果 */  
+    font-size: 20px;
+}
+#head div#language {
+    position: absolute;
+    right: 10%;
+    bottom: 10%;
+    font-size: 10px;
+}
+#head #title{
+    position: absolute;
+    top: 15%;
+}
+#circle-container {  
+    position: relative;  
+    width: 200px;  
+    height: 200px;  
+    border-radius: 50%;  
+    overflow: hidden; /* 隐藏超出圆形的元素 */  
+    background-color: #f0f0f0; /* 可选：设置容器背景色 */  
+}  
+  
+.circle-element {  
+    position: absolute;  
+    width: 30px;  
+    height: 30px;  
+    border-radius: 50%;  
+    background-color: red; /* 示例颜色，可以更改 */  
+    /* 添加动画或初始位置等样式 */  
+}  
+  
+#element1 {  
+    top: 50px;  
+    left: 50px;  
+}  
+  
+#element2 {  
+    top: 100px;  
+    left: 150px;  
+    /* 可以添加更多动画或样式 */  
+}
+</style>
+</head>  
+<body>  
+    
+        <form id="lotteryForm">  
+        <div id="input1" class="bb">  
+            <button onclick="initkj()" id="kaiji">开机</button>
+              
+        </div>  
+    </form>  
+    <script>
+        var hzuida = 33;
+        var lzuida = 16;
+        function initkj() {
+    var d = document.getElementById('input1');
+    d.innerHTML = '';
+    for (var i = 1;i<=5;i++) {
+        var a = createDiv('div','');
+        for (var j=1;j<=6;j++) {
+        const input = document.createElement('input');  
+        input.setAttribute('type', 'number');  
+        input.setAttribute('id', 'number'+i+j);  
+        input.setAttribute('min', '1');  
+        a.appendChild(input);  
+        }
+        const span = document.createElement('span');  
+        span.textContent = '-';  
+        a.appendChild(span); 
+        const input = document.createElement('input');  
+        input.setAttribute('type', 'number');  
+        input.setAttribute('id', 'lnum'+i);  
+        input.setAttribute('min', '1');  
+        // input.setAttribute('required', '');  
+        a.appendChild(input);
+        var b = createDiv('div','删');
+        // 使用闭包来确保正确的 i 值被引用  
+        (function(currentI) {  
+            b.addEventListener('click', function() {    
+                for (var p = 1; p <= 6; p++) {  
+                    var input = document.getElementById('number' + currentI + p);   
+                    input.value = '';   
+                }
+                var input = document.getElementById('lnum' + currentI);    
+                input.value = '';  
+            });  
+        })(i); 
+        a.appendChild(b);
+        var c = createDiv('div','机');
+        // 使用闭包来确保正确的 i 值被引用  
+        (function(currentI) {  
+            c.addEventListener('click', function() {    
+                sj(''+currentI);
+            });  
+        })(i);
+        a.appendChild(c);
+        if (i==1) {
+            var bei = createDiv('input','');
+            bei.setAttribute('type', 'number');  
+            bei.setAttribute('id', 'beishu');  
+            bei.setAttribute('min', '1');  
+            bei.setAttribute('required', ''); 
+            bei.value='1';
+            a.appendChild(bei);
+        }else if (i==2) {
+            var shan = createDiv('div','清');
+            shan.addEventListener('click',function() {
+                initkj();
+            });
+            a.appendChild(shan);
+        }else if (i==3) {
+            var sui = createDiv('div','随');
+            sui.addEventListener('click',function() {
+                sj(5);
+            });
+            a.appendChild(sui);
+        }else if (i==4) {
+            var jiao = createDiv('div','印');
+            jiao.addEventListener('click',function() {
+                eve(event);
+            });
+            a.appendChild(jiao);
+        }else if (i==5) {
+            var tui = createDiv('div','退');
+            tui.addEventListener('click',function() {
+                d.innerHTML = '';
+                var kaiji = createDiv('button','开机');
+                kaiji.setAttribute('id', 'kaiji');  
+                kaiji.addEventListener('click',function() {
+                    initkj();
+                });
+                d.appendChild(kaiji);
+            });
+            a.appendChild(tui);
+        }
+        d.appendChild(a);
+    }var xin = createDiv('div','');
+        xin.setAttribute('id','xinxi');
+        d.appendChild(xin);
+    
+}
+function sj(n) {  
+    if (typeof n === 'number') {
+        for (var nn =1;nn<=n;nn++) {
+            var s = new Set();
+            var arr=[];
+            var inp=[];
+            // 假设我们有六个input元素，它们的id分别为input1, input2, ..., input6  
+            for (var i = 1; i <= 6; i++) {  
+                // 获取当前input元素  
+                var input = document.getElementById('number' +nn+ i);  
+                inp.push(input);
+                // 生成一个1到49之间的随机整数（例如彩票号码）  
+                // 初始化随机数  
+                var randomNum;  
+                // 使用 while 循环来确保生成的数字是唯一的  
+                do {  
+                    randomNum = Math.floor(Math.random() * hzuida) + 1;  
+                } while (s.has(randomNum));  
+          
+                // 设置 input 元素的值为随机生成的数字，并添加到集合中  
+                arr.push(randomNum<10?'0'+randomNum:String(randomNum));  
+                s.add(randomNum);  
+            }  
+            arr.sort((a, b) => a - b);
+            for(z=0;z<arr.length;z++){
+                inp[z].value = arr[z];
+            }
+            var input1 = document.getElementById('lnum'+nn);
+            inpl = Math.floor(Math.random() * lzuida) + 1;
+            input1.value = inpl<10?'0'+inpl:String(inpl);
+        }
+    }else if (typeof n === 'string' && n.length >= 2 && !isNaN(n[0]) && !isNaN(n[1])) {  
+        var start = parseInt(n[0], 10);  
+        var end = parseInt(n[1], 10);  
+  
+        // 确保结束行大于开始行  
+        if (start < end) {  
+            for (var nn = start; nn <= end; nn++) {  
+                var s = new Set();  
+                var arr = [];
+                var inp = [];
+                for (var i = 1; i <= 6; i++) {  
+                    var input = document.getElementById('number' + nn + i); 
+                    inp.push(input); 
+                    var randomNum;  
+                    do {  
+                        randomNum = Math.floor(Math.random() * hzuida) + 1;  
+                    } while (s.has(randomNum));  
+                    arr.push(randomNum < 10 ? '0' + randomNum : String(randomNum));  
+                    s.add(randomNum);  
+                }  
+                arr.sort((a, b) => a - b);
+                for(z=0;z<arr.length;z++){
+                    inp[z].value = arr[z];
+                }
+                var input1 = document.getElementById('lnum' + nn);  
+                var inpl = Math.floor(Math.random() * lzuida) + 1;  
+                input1.value = inpl < 10 ? '0' + inpl : String(inpl);  
+            }  
+        }  
+    }else if (typeof n === 'string' && n.length ==1) {
+        var s = new Set();  
+        var arr = [];
+        var inp = [];
+        for (var i = 1; i <= 6; i++) {  
+            var input = document.getElementById('number' + n + i);  
+            inp.push(input);
+            var randomNum;  
+            do {  
+                randomNum = Math.floor(Math.random() * hzuida) + 1;  
+            } while (s.has(randomNum));  
+            arr.push(randomNum < 10 ? '0' + randomNum : String(randomNum));  
+            s.add(randomNum);  
+        }  
+        arr.sort((a, b) => a - b);
+        for(z=0;z<arr.length;z++){
+            inp[z].value = arr[z];
+        }
+        var input1 = document.getElementById('lnum' + n);  
+        var inpl = Math.floor(Math.random() * lzuida) + 1;  
+        input1.value = inpl < 10 ? '0' + inpl : String(inpl); 
+    }  
+} 
+// 创建一个div元素的辅助函数  
+    function createDiv(div,textContent) {  
+        var div = document.createElement(div);  
+        div.textContent = textContent;  
+        return div;  
+    }
+    </script>
+</body>
+</html>
